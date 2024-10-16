@@ -1,0 +1,44 @@
+<header class="container max-w-5xl mx-auto">
+    <div class="flex items-center justify-center gap-10">
+        <a routerLink="/">
+            <img class="w-60 cursor-pointer" src="../../../assets/images/logo.png" alt="">
+        </a>
+        <div class="flex justify-between items-center gap-10">
+            <ul class="flex w-full flex-1 gap-5">
+                <li>
+                    <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/" class="link font-semibold text-lg text-neutral-500 duration-300 relative">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/enterprise" class="link font-semibold text-lg text-neutral-500 duration-300 relative">
+                        Empresa
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/products" class="link font-semibold text-lg text-neutral-500 duration-300 relative">
+                        Productos
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/contact" class="link font-semibold text-lg text-neutral-500 duration-300 relative">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+            <ul class="flex w-full flex-1 items-center gap-5">
+                <li class="relative">
+                    <input class="outline-none p-2 border text-neutral-500 border-neutral-400 rounded-md" type="text" placeholder="Buscar">
+                    <button>
+                        <img class="absolute w-8 top-2/4 -translate-y-2/4 right-0" src="../../../assets/images/buscar.png" alt="">
+                    </button>
+                </li>
+                <li>
+                    <a class="" routerLink="/login">
+                        <img class="w-10" src="../../../assets/images/usuario.png" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

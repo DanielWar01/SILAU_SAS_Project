@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.link::after {
+    content: "";
+    position: absolute;
+    background-color: #737373;
+    top: 100%; /* Posiciona debajo del texto */
+    left: 0; /* Inicia en la misma posición del enlace */
+    height: 0.15rem;
+    width: 100%;
+    opacity: 0; /* Oculto por defecto */
+    transform: translateX(-100%); /* Posición inicial fuera del enlace */
+    transition: all 0.3s ease-in-out;
+}
+
+.link:hover::after {
+    opacity: 1; /* Aparece en hover */
+    transform: translateX(0); /* Se desliza a la posición final */
+}
+
+.active::before{
+    content: "";
+    position: absolute;
+    background-color: #737373;
+    top: 100%;
+    left: 0;
+    height: 0.15rem;
+    width: 100%;
+}
