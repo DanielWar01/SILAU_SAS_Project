@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container-carrousel {
+    height: 500px;
+    position: relative;
+    overflow: hidden; /* Oculta el desbordamiento horizontal */
+}
+
+.carrousels {
+    width: 300%;
+    height: 100%;
+    display: flex;
+}
+
+.slider-section {
+    width: calc(100% / 3);
+    height: 100%;
+}
+
+.slider-section img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.btn-left,
+.btn-rigth {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    border-radius: 10%;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #808080;
+    transform: translate(0, -50%);
+    transition: .5s ease;
+}
+
+.btn-rigth {
+    right: 10px; /* Posiciona a la derecha dentro del contenedor */
+}
+
+.btn-left {
+    left: 10px; /* Posiciona a la izquierda dentro del contenedor */
+}
+
+.btn-left:hover {
+    left: 5px;
+}
+
+.btn-rigth:hover {
+    right: 5px;
+}
