@@ -9,13 +9,13 @@
 }
 
 .carrousels {
-    width: 300%;
+    width: 400%;
     height: 100%;
     display: flex;
 }
 
 .slider-section {
-    width: calc(100% / 3);
+    width: calc(100% / 4);
     height: 100%;
 }
 
@@ -40,11 +40,11 @@
 }
 
 .btn-rigth {
-    right: 10px; /* Posiciona a la derecha dentro del contenedor */
+    right: 10px;
 }
 
 .btn-left {
-    left: 10px; /* Posiciona a la izquierda dentro del contenedor */
+    left: 10px; 
 }
 
 .btn-left:hover {
