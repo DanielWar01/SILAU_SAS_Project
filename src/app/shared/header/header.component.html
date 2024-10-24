@@ -1,9 +1,9 @@
 <header class="container max-w-5xl mx-auto">
-    <div class="flex items-center justify-center gap-10">
+    <div class="flex items-center justify-center gap-10 flex-col md:flex-row">
         <a routerLink="/">
             <img class="w-60 cursor-pointer" src="../../../assets/images/logo.png" alt="">
         </a>
-        <div class="flex justify-between items-center gap-10">
+        <div class="flex justify-between items-center gap-10 mb-5 flex-col sm:flex-row">
             <ul class="flex w-full flex-1 gap-5">
                 <li>
                     <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/" class="link font-semibold text-lg text-neutral-500 duration-300 relative">
@@ -26,7 +26,7 @@
                     </a>
                 </li>
             </ul>
-            <ul class="flex w-full flex-1 items-center gap-5">
+            <ul class="flex w-full flex-1 justify-center items-center gap-5">
                 <li class="relative">
                     <input class="outline-none p-2 border text-neutral-500 border-neutral-400 rounded-md" type="text" placeholder="Buscar">
                     <button>
