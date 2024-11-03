@@ -3,7 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { SliderComponent } from "./shared/slider/slider.component";
 import { FooterComponent } from './shared/footer/footer.component';
-
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     RouterOutlet,
     HeaderComponent,
     SliderComponent,
+    CommonModule,
     FooterComponent
 ],
   templateUrl: './app.component.html',
@@ -20,5 +22,18 @@ import { FooterComponent } from './shared/footer/footer.component';
 export class AppComponent {
   title = 'SILAU-Project';
 
-  
+  showSlider: boolean = true;
+  showHeader: boolean = true;
+  showFooter: boolean = true;
+
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((val: any) => {
+      if (val.url) {
+        this.showSlider = val.url !== '/login' && val.url !== '/dashboard';
+        this.showHeader = val.url !== '/dashboard';
+        this.showFooter = val.url !== '/dashboard';
+      }
+    });
+  }
 }

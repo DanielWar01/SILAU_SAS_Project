@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .input-box input:valid ~ label,
 .input-box textarea:valid ~ label,
 .input-box input:focus ~ label,

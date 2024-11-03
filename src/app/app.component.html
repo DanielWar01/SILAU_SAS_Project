@@ -6,9 +6,9 @@
   <title>SILAU S.A.S.</title>
 </head>
 <body>
-  <app-header></app-header>
-  <app-slider></app-slider>
+  <app-header *ngIf="showHeader"></app-header>
+  <app-slider *ngIf="showSlider"></app-slider>
   <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <app-footer *ngIf="showFooter"></app-footer>
 </body>
 </html>

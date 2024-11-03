@@ -1,1 +1,27 @@
-<p>products works!</p>
+<main class="container max-w-4xl mx-auto mt-10">
+    <div class="flex gap-5 justify-between items-center mb-5">
+        <div class="flex-1 flex flex-col gap-5">
+            <h3 class="text-3xl font-bold text-neutral-700">Portarretrato</h3>
+            <p class="text-justify">Accesorio decorativo diseñado para exhibir y destacar fotografías. Diseñado en MDF que incluye protección de vidrio o acetato para preservar la fotografía y está disponible en una variedad de tamaños, comenzando desde 9 x 12 cm. El color característico es el caoba, y su acabado es mate, lo que le da elegancia.</p>
+        </div>
+        <img class="flex-1 w-64" src="../../../assets/images/products/img-16.png" alt="">
+    </div>
+</main>
+<div class="max-w-7xl mx-auto container">
+    <form action="" class="text-lg flex gap-5 items-center">
+        <label for="">Filtrar</label>
+        <select name="" id="" class="appearance-none outline-none border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
+            <option value="" disabled selected>Disponibilidad</option>
+            <option value="disponible">Disponible</option>
+            <option value="no-disponible">No disponible</option>
+        </select>
+    </form>
+    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <app-card-product [price]="21000" url="../../../assets/images/products/img-1.jpeg" name="Producto 1"></app-card-product>
+        <app-card-product [price]="32000" url="../../../assets/images/products/img-6.jpeg" name="Producto 2"></app-card-product>
+        <app-card-product [price]="18000" url="../../../assets/images/products/img-7.jpeg" name="Producto 3"></app-card-product>
+        <app-card-product [price]="22000" url="../../../assets/images/products/img-10.jpeg" name="Producto 3"></app-card-product>
+        <app-card-product [price]="32000" url="../../../assets/images/products/img-11.jpeg" name="Producto 3"></app-card-product>
+        <app-card-product [price]="19000" url="../../../assets/images/products/img-12.jpeg" name="Producto 3"></app-card-product>
+    </div>
+</div>
