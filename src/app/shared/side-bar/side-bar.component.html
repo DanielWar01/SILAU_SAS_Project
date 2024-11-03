@@ -9,7 +9,7 @@
             <i #icon (click)="moveMenu()" class="cursor-pointer fa-solid fa-truck-fast text-brand-yellow text-xl"></i>
             <img #logo class="min-w-32 h-16 duration-500" src="../../../assets/images/logo.png" alt="">
         </div>
-        <a class="cursor-pointer bg-black text-white p-3 flex items-center gap-5 rounded-md">
+        <a class="cursor-pointer bg-black text-white p-3 flex items-center gap-5 rounded-md" href="/dashboard">
             <i class="min-w-12 fa-solid fa-house"></i>
             <span #span class="font-bold ease-in-out duration-500">Dashboard</span>
         </a>
@@ -17,32 +17,32 @@
         <nav class="py-5 border-b-2 border-neutral-200 overflow-y-auto max-h-[400px]">
             <ul class="flex flex-col gap-5 text-center">
                 <li>
-                    <a class="cursor-pointer  flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" href="">
+                    <a class="cursor-pointer  flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" href="/dashboard/users">
                         <i class="min-w-12 fa-regular fa-user"></i>
                         <span #span class="duration-500 ease-in-out">Usuarios</span>
                     </a>
                 </li>
                 <li>
-                    <a class="cursor-pointer flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" href="">
+                    <a class="cursor-pointer flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" href="/customers">
                         <i class="min-w-12 fas fa-user-tie"></i>
                         <span #span class="duration-500 ease-in-out">Clientes</span>
                     </a>
                 </li>
                 <li class="list__item--click overflow-hidden">
                     <button #list__button1 class="list__button--click cursor-pointer flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" (click)="toggleArrow(list__button1)">
-                        <i class="min-w-12 fas fa-cube"></i>
+                        <i class="min-w-12 fas fa-box-open"></i>
                         <span #span class="duration-500 ease-in-out">Pedidos</span>
                         <i class="list__arrow ml-auto mr-4 text-sm fas fa-chevron-right duration-300"></i>
                     </button>
                     <ul class="list__show w-4/5 ml-auto border-l-2 border-neutral-700 duration-300 h-0">
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/orders/new">
                                 <i class="fas fa-plus-circle"></i>
                                 <span #span>Agregar Pedido</span>
                             </a>
                         </li>
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/orders/edit">
                                 <i class="fas fa-edit"></i>
                                 <span #span>
                                     Editar Pedido
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/orders">
                                 <i class="fas fa-list"></i>
                                 <span #span>
                                     Lista Pedidos
@@ -61,13 +61,13 @@
                 </li>
                 <li class="list__item--click overflow-hidden">
                     <button #list__button2 class="list__button--click cursor-pointer flex gap-5 items-center text-yellow-intense text-xl rounded-xl w-full hover:bg-neutral-200 py-2 duration-300" (click)="toggleArrow(list__button2)">
-                        <i class="min-w-12 fas fa-box-open"></i>
+                        <i class="min-w-12 fas fa-cube"></i>
                         <span #span class="duration-500 ease-in-out">Productos</span>
                         <i class="list__arrow ml-auto mr-4 text-sm fas fa-chevron-right duration-300"></i>
                     </button>
                     <ul class="list__show w-4/5 ml-auto border-l-2 border-neutral-700 duration-300 h-0">
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/stock/new">
                                 <i class="fas fa-plus-circle"></i>
                                 <span #span>
                                     Agregar Producto
@@ -75,7 +75,7 @@
                             </a>
                         </li>
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/stock/edit">
                                 <i class="fas fa-edit"></i>
                                 <span #span>
                                     Editar Producto
@@ -83,7 +83,7 @@
                             </a>
                         </li>
                         <li class="pl-3 text-left">
-                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="">
+                            <a class="flex justify-between px-1 items-center text-brand-gray font-semibold py-3 nav__link--inside" href="/stock">
                                 <i class="fas fa-list"></i>
                                 <span #span>
                                     Lista Producto

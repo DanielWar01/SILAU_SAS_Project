@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import DashboardComponent from './features/dashboard/dashboard.component';
+import UsersComponent from './features/dashboard/users/users.component';
 
 export const routes: Routes = [
     {
@@ -29,7 +31,14 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         title: 'Dashboard',
-        loadComponent: () => import('./features/dashboard/dashboard.component')
+        component: DashboardComponent,
+        children: [
+            {
+                path: 'users',
+                title: 'Users',
+                component: UsersComponent
+            },
+        ]
     },
     {
         path: '**',

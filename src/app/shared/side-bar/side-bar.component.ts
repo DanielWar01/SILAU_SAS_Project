@@ -50,7 +50,6 @@ export class SideBarComponent implements AfterViewInit {
     if (window.innerWidth <= 320){
       this.lateral_bar.nativeElement.classList.add('mini-bar');
       this.logo.nativeElement.classList.toggle('hid');
-      this.parentElement.classList.toggle('min-main')
       this.spans.forEach(span => {
         span.nativeElement.classList.toggle('hid');
       });
