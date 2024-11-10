@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './customers.component.css'
 })
 export default class CustomersComponent {
+  public numberList: number[] = [];
 
+  constructor() {
+    const start = 5;
+    const end = 30;
+    this.numberList = Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  }
 }

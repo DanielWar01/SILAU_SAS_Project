@@ -30,9 +30,9 @@ export class AppComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((val: any) => {
       if (val.url) {
-        this.showSlider = val.url !== '/login' && val.url !== '/dashboard' && val.url !== '/dashboard/users';
-        this.showHeader = val.url !== '/dashboard' && val.url !== '/dashboard/users';
-        this.showFooter = val.url !== '/dashboard' && val.url !== '/dashboard/users';
+        this.showSlider = val.url !== '/login' && val.url !== '/dashboard' && val.url !== '/dashboard/users' && val.url !== '/dashboard/customers';
+        this.showHeader = val.url !== '/dashboard' && val.url !== '/dashboard/users' && val.url !== '/dashboard/customers';
+        this.showFooter = val.url !== '/dashboard' && val.url !== '/dashboard/users' && val.url !== '/dashboard/customers';
       }
     });
   }

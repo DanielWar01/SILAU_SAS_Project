@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import DashboardComponent from './features/dashboard/dashboard.component';
 import UsersComponent from './features/dashboard/users/users.component';
+import CustomersComponent from './features/dashboard/customers/customers.component';
 
 export const routes: Routes = [
     {
@@ -31,13 +32,18 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         title: 'Dashboard',
-        component: DashboardComponent,
+        loadComponent: () => import('./features/dashboard/dashboard.component'),
         children: [
             {
                 path: 'users',
                 title: 'Users',
-                component: UsersComponent
+                loadComponent: () => import('./features/dashboard/users/users.component')
             },
+            {
+                path: 'customers',
+                title: 'Customers',
+                component: CustomersComponent
+            }
         ]
     },
     {
