@@ -17,22 +17,3 @@
 .btn-add:hover:after{
     transform: translateX(400%) skewX(-45deg);
 }
-
-.modal-container{
-    background-color: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    visibility: hidden;
-}
-
-.modal-close{
-    transform: translateY(-200%);
-}
-
-.input-box input:valid ~ label,
-.input-box textarea:valid ~ label,
-.input-box input:focus ~ label,
-.input-box textarea:focus ~ label{
-    font-weight: bold;
-    transform: translateY(-80%);
-    font-size: 1rem;
-}

@@ -42,7 +42,12 @@ export const routes: Routes = [
             {
                 path: 'customers',
                 title: 'Customers',
-                component: CustomersComponent
+                loadComponent: () => import('./features/dashboard/customers/customers.component')
+            },
+            {
+                path: 'list-products',
+                title: 'List Products',
+                loadComponent: () => import('./features/dashboard/list-products/list-products.component')
             }
         ]
     },
