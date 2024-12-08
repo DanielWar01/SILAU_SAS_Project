@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, inject, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -18,6 +18,8 @@ export class SideBarComponent implements AfterViewInit {
   @ViewChildren('list__button', { read: ElementRef }) listElements!: QueryList<ElementRef>;
 
   @Input() parentElement!: HTMLElement;
+
+  private router = inject(Router);
 
   ngAfterViewInit(): void {
     
@@ -67,5 +69,13 @@ export class SideBarComponent implements AfterViewInit {
       height = menu.clientHeight === 0 ? menu.scrollHeight : 0;
       menu.style.height = `${height}px`;
     }
+  }
+
+  logOut() {
+
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("token");
+    }
+    this.router.navigate(["/login"])
   }
 }

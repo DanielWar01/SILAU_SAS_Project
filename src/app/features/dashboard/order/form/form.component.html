@@ -1,0 +1,103 @@
+<!-- order/form/form.component.html -->
+<main class="p-5">
+    <h2 class="text-neutral-700 font-bold text-2xl uppercase mb-6">Agregar Pedido</h2>
+  
+    <div class="bg-white p-6 rounded-lg shadow">
+      <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="form-group">
+            <label class="block mb-2">Empresa</label>
+            <select formControlName="empresa" class="w-full p-2 border rounded">
+              <option value="">Seleccione una empresa</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label class="block mb-2">Fecha de ingreso</label>
+            <input type="date" formControlName="fecha_ingreso" class="w-full p-2 border rounded">
+          </div>
+  
+          <div class="form-group">
+            <label class="block mb-2">Fecha de entrega</label>
+            <input type="date" formControlName="fecha_entrega" class="w-full p-2 border rounded">
+          </div>
+        </div>
+  
+        <div class="mt-6">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Productos</h3>
+            <button type="button" (click)="addProduct()" class="bg-orange-500 text-white px-4 py-2 rounded">
+              + Agregar Producto
+            </button>
+          </div>
+  
+          <div formArrayName="productos" class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="p-3 text-left">Producto</th>
+                  <th class="p-3 text-left">Línea</th>
+                  <th class="p-3 text-left">Medida</th>
+                  <th class="p-3 text-left">Cantidad</th>
+                  <th class="p-3 text-left">Precio Unit.</th>
+                  <th class="p-3 text-left">Costo Total</th>
+                  <th class="p-3 text-left">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productos.controls; let i = index" [formGroupName]="i" class="border-b">
+                  <td class="p-3">
+                    <select formControlName="producto" class="w-full p-2 border rounded">
+                      <option value="">Seleccione</option>
+                    </select>
+                  </td>
+                  <td class="p-3">
+                    <input type="text" formControlName="linea" class="w-full p-2 border rounded">
+                  </td>
+                  <td class="p-3">
+                    <input type="text" formControlName="medida" class="w-full p-2 border rounded">
+                  </td>
+                  <td class="p-3">
+                    <input type="number" formControlName="cantidad" (change)="calculateTotal(i)" class="w-full p-2 border rounded">
+                  </td>
+                  <td class="p-3">
+                    <input type="number" formControlName="precio_unit" (change)="calculateTotal(i)" class="w-full p-2 border rounded">
+                  </td>
+                  <td class="p-3">
+                    <input type="number" formControlName="costo_total" readonly class="w-full p-2 border rounded bg-gray-100">
+                  </td>
+                  <td class="p-3">
+                    <button type="button" (click)="removeProduct(i)" class="text-red-600">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  
+        <div class="form-group mt-6">
+          <label class="block mb-2">Detalle</label>
+          <textarea formControlName="detalle" class="w-full p-2 border rounded" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="block mb-2">Estado</label>
+            <select formControlName="estado" class="w-full p-2 border rounded">
+              <option value="Recibido">Recibido</option>
+              <option value="En Proceso">En Proceso</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
+          </div>
+          
+        <div class="flex gap-4 mt-6">
+          <button type="submit" class="bg-orange-500 text-white px-6 py-2 rounded">
+            Guardar
+          </button>
+          <button type="button" class="bg-gray-500 text-white px-6 py-2 rounded" routerLink="/dashboard/orders">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>

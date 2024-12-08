@@ -1,7 +1,9 @@
 export interface Customer {
-    nombre: string
-    apellido: string
-    celular: string
-    correo: string
-    activo: boolean
+    idCliente: number;
+    nombre: string;
+    empresa: string;
+    correo: string;
+    direccion: string;
+    celular: string;
+    estado: boolean;
 }

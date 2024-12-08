@@ -1,0 +1,146 @@
+<main class="p-5">
+  <h2 class="text-neutral-700 font-bold text-2xl uppercase">Lista de Pedidos</h2>
+
+  <section class="bg-white px-2 py-4 mt-4">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr>
+            <th>No Pedido</th>
+            <th>Empresa</th>
+            <th>Cliente</th>
+            <th>Fecha Ingreso</th>
+            <th>Fecha Entrega</th>
+            <th>Estado Pedido</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{order.idPedido}}</td>
+            <td>{{order.empresa}}</td>
+            <td>{{order.cliente}}</td>
+            <td>{{order.fechaIngreso | date:'dd/MM/yyyy'}}</td>
+            <td>{{order.fechaEntrega | date:'dd/MM/yyyy'}}</td>
+            <td>
+              <span [ngClass]="{
+                'bg-yellow-300 text-yellow-800': order.estadoPedido === 'Pendiente',
+                'bg-green-300 text-green-800': order.estadoPedido === 'Confirmado',
+                'bg-blue-300 text-blue-800': order.estadoPedido === 'Finalizado'
+              }" class="px-2 py-1 rounded">
+                {{order.estadoPedido}}
+              </span>
+            </td>
+            <td>{{order.total | currency:'USD':'symbol':'1.2-2'}}</td>
+            <td>
+              <button (click)="openEditModal(order)" class="text-blue-600 mr-2">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button (click)="deleteOrder(order.idPedido)" class="text-red-600">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Modal de Edición -->
+  <div class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible" #editModalContainer>
+    <div class="modal p-4 relative w-3/4 h-4/5 bg-white rounded-xl transition-transform duration-1000 ease-in-out translate-y-0 overflow-y-auto modal-close" #editModal>
+      <h2 class="text-neutral-700 text-2xl mb-6">EDITAR PEDIDO</h2>
+      
+      <form [formGroup]="editForm" *ngIf="selectedOrder" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="form-group">
+            <label class="block mb-2">Empresa</label>
+            <input type="text" formControlName="empresa" class="w-full p-2 border rounded" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="block mb-2">Fecha de ingreso</label>
+            <input type="date" formControlName="fechaIngreso" class="w-full p-2 border rounded">
+          </div>
+
+          <div class="form-group">
+            <label class="block mb-2">Fecha de entrega</label>
+            <input type="date" formControlName="fechaEntrega" class="w-full p-2 border rounded">
+          </div>
+
+          <div class="form-group">
+            <label class="block mb-2">No Pedido</label>
+            <input type="text" [value]="selectedOrder.idPedido" readonly class="w-full p-2 border rounded bg-gray-100">
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <h3 class="text-lg font-semibold mb-4">Producto</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <img [src]="selectedOrder.productoPedido.producto.imagen" alt="Producto" class="w-full h-auto object-cover rounded">
+              <div class="mt-4">
+                <p><strong>Nombre:</strong> {{selectedOrder.productoPedido.producto.nombre}}</p>
+                <p><strong>Descripción:</strong> {{selectedOrder.productoPedido.producto.descripcion}}</p>
+                <p><strong>Tamaño:</strong> {{selectedOrder.productoPedido.producto.tamano}}</p>
+                <p><strong>Línea:</strong> {{selectedOrder.productoPedido.producto.linea_producto}}</p>
+              </div>
+            </div>
+            <div>
+              <div class="form-group mb-4">
+                <label class="block mb-2">Cantidad</label>
+                <div class="flex items-center gap-2">
+                  <button type="button" (click)="decrementCantidad()" class="px-2 py-1 bg-gray-200 rounded">-</button>
+                  <input type="number" formControlName="cantidad" 
+                         class="w-20 p-2 border rounded text-center"
+                         [attr.max]="selectedOrder.productoPedido.producto.cantidadExistente">
+                  <button type="button" (click)="incrementCantidad()" class="px-2 py-1 bg-gray-200 rounded">+</button>
+                </div>
+                <small class="text-gray-500">
+                  Disponibles: {{selectedOrder.productoPedido.producto.cantidadExistente}}
+                </small>
+              </div>
+
+              <div class="form-group mb-4">
+                <label class="block mb-2">Precio Unitario</label>
+                <input type="text" 
+                       [value]="selectedOrder.productoPedido.producto.precio | currency:'USD':'symbol':'1.2-2'" 
+                       readonly 
+                       class="w-full p-2 border rounded bg-gray-100">
+              </div>
+
+              <div class="form-group">
+                <label class="block mb-2">Costo Total</label>
+                <input type="text" 
+                       formControlName="costo_total" 
+                       readonly 
+                       class="w-full p-2 border rounded bg-gray-100">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div class="form-group">
+            <label class="block mb-2">Estado del Pedido</label>
+            <select formControlName="estadoPedido" class="w-full p-2 border rounded">
+              <option value="Pendiente">Pendiente</option>
+              <option value="Confirmado">Confirmado</option>
+              <option value="Finalizado">Finalizado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-6">
+          <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded" (click)="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

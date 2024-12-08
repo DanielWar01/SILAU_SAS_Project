@@ -1,16 +1,19 @@
-<form class="form mt-10 max-w-xl container mx-auto" action="">
+<form [formGroup]="formLogin" class="form mt-10 max-w-xl container mx-auto" action="">
     <h2 class="mb-5 text-4xl font-bold text-neutral-600 text-center">Inicio de sesión</h2>
     <div class="flex gap-10 justify-between mt-10 text-xl flex-col">
         <div class="relative flex-1 input-box">
-            <input type="text" name="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
-            <label for=""  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Correo Electrónico</label>
+            <input formControlName="user" type="text" id="email" name="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+            <label for="email"  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Usuario</label>
         </div>
         <div class="relative flex-1 input-box">
-            <input type="password" id="password" name="password" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+            <input formControlName="password" type="password" id="password" name="password" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
             <label for="password" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Contraseña</label>
         </div>
     </div>
-    <div class="container flex justify-center items-center">
-        <button class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-10 font-bold text-white text-xl duration-300 hover:shadow-xl">Acceder</button>
+    @if(error){
+        <p class="font-bold text-white bg-red-500 text-lg mt-5 text-center p-2 rounded-lg duration-300 ease-linear transition-opacity opacity-0 animate-fade-in">{{error}}</p>
+    }
+    <div class="container flex justify-center items-center duration-300">
+        <button (click)="logIn()" type="submit" class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-10 font-bold text-white text-xl duration-300 hover:shadow-xl">Acceder</button>
     </div>
 </form>

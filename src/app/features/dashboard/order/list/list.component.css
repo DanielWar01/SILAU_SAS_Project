@@ -1,39 +1,36 @@
+/* order/list/order-list.component.css */
 .modal-close {
     transform: translateY(-200%);
-}
-
-.modal-container {
+  }
+  
+  .modal-container {
     background-color: rgba(0, 0, 0, 0.5);
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
+  }
+  
+  .form-group label {
     font-weight: 500;
     color: #374151;
-}
-
-input:read-only {
+  }
+  
+  input:read-only {
     background-color: #f3f4f6;
     cursor: not-allowed;
-}
-
-table {
+  }
+  
+  table {
     border-collapse: collapse;
-}
-
-th {
+  }
+  
+  th {
     font-weight: 500;
     background-color: #f9fafb;
-}
-
-td, th {
+  }
+  
+  td, th {
     text-align: left;
     padding: 0.75rem;
-}
-
-tr {
+  }
+  
+  tr {
     border-bottom: 1px solid #e5e7eb;
-}
+  }

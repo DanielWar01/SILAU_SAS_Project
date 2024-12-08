@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import DashboardComponent from './features/dashboard/dashboard.component';
-import UsersComponent from './features/dashboard/users/users.component';
-import CustomersComponent from './features/dashboard/customers/customers.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -27,27 +26,57 @@ export const routes: Routes = [
     {
         path: 'login',
         title: 'Login',
-        loadComponent: () => import('./features/authentication/authentication.component')
+        loadComponent: () => import('./features/authentication/authentication.component'),
     },
     {
         path: 'dashboard',
         title: 'Dashboard',
         loadComponent: () => import('./features/dashboard/dashboard.component'),
+        canActivate: [authGuard],
         children: [
-            {
-                path: 'users',
-                title: 'Users',
-                loadComponent: () => import('./features/dashboard/users/users.component')
-            },
             {
                 path: 'customers',
                 title: 'Customers',
-                loadComponent: () => import('./features/dashboard/customers/customers.component')
+                loadComponent: () => import('./features/dashboard/customers/customers.component'),
+                canActivate: [authGuard],
             },
             {
                 path: 'list-products',
-                title: 'List Products',
-                loadComponent: () => import('./features/dashboard/list-products/list-products.component')
+                children: [
+                    {
+                        path: '',
+                        title: 'List Products',
+                        loadComponent: () => import('./features/dashboard/list-products/list-products.component'),
+                        canActivate: [authGuard],
+                    },
+                    {
+                        path: 'new',
+                        title: 'New Product',
+                        loadComponent: () => import('./features/dashboard/list-products/form/form-products.component'),
+                        canActivate: [authGuard],
+                    },
+                    {
+                        path: 'line',
+                        title: 'Product Lines',
+                        loadComponent: () => import('./features/dashboard/list-products/line/line-products.component'),
+                        canActivate: [authGuard],
+                    }
+                ]
+            },
+            {
+                path: 'orders',
+                children: [
+                    {   path: '', 
+                        title: 'List',
+                        loadComponent: () => import('./features/dashboard/order/list/list.component'),
+                        canActivate: [authGuard],
+                    },
+                    {   path: 'new', 
+                        title:'New-Order' ,
+                        loadComponent: () => import('./features/dashboard/order/form/form.component'),
+                        canActivate: [authGuard],
+                    }
+                ]
             }
         ]
     },
