@@ -1,6 +1,6 @@
 <main class="p-5">
     <h2 class="text-neutral-700 font-bold text-2xl uppercase">Lista de clientes</h2>
-    <button (click)="openModal()" class="btn-add my-5 relative duration-500 overflow-hidden flex gap-2 justify-center items-center font-semibold text-white bg-brand-yellow py-2 px-5 text-lg rounded-md hover:scale-105">
+    <button (click)="openModal(false)" class="btn-add my-5 relative duration-500 overflow-hidden flex gap-2 justify-center items-center font-semibold text-white bg-brand-yellow py-2 px-5 text-lg rounded-md hover:scale-105">
         <i class="fa fa-plus"></i>
         <span>Nuevo</span>
     </button>
@@ -59,7 +59,7 @@
                             <td class="px-4 py-2 border-b border-gray-200">{{customer.celular}}</td>
                             <td class="px-4 py-2 border-b border-gray-200 font-bold"><span class="bg-pink-300 text-purple-800 px-2 py-1 rounded">{{customer.estado ? "Activo": "Inactivo"}}</span></td>
                             <td class="px-4 py-2 border-b border-gray-200 font-bold">
-                                <button (click)="openModal()" class="scale-105 cursor-pointer">
+                                <button (click)="openModal(true, customer)" class="scale-105 cursor-pointer">
                                     <i class="fa fa-pencil text-blue-500 mr-3"></i>
                                 </button>
                                 <button class="scale-105 cursor-pointer">
@@ -74,31 +74,31 @@
     </section>
     <div #modal_container class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center">
         <div #modal class="modal p-4 modal-close relative w-3/4 font-bold h-4/5 text-center bg-white rounded-xl transition-transform duration-1000 ease-in-out translate-y-0 overflow-y-auto">
-            <h3 class="text-neutral-700 text-2xl text-left">Agregar cliente</h3>
+            <h3 class="text-neutral-700 text-2xl text-left">{{modalTitle}}</h3>
             <button (click)="closeModal()" class="hover:scale-105 hover:shadow-md duration-200 absolute right-4 top-4 flex justify-center items-center w-7 h-7 rounded-full bg-red-600 text-white">
                 <i class="fa fa-close"></i>
             </button>
             <div class="flex justify-center items-center">
                 <img class="w-40 h-40" src="/../../../../assets/images/dashboard/customer-review.png" alt="" srcset="">
             </div>
-            <form action="" class="container max-w-4xl mx-auto mt-10">
+            <form [formGroup]="formCusotmer" action="" class="container max-w-4xl mx-auto mt-10">
                 <div class="flex gap-10 justify-between mt-10 text-xl sm:flex-row flex-col">
                     <div class="relative flex-1 input-box">
-                        <input type="text" name="name" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                        <input formControlName="nombre" type="text" name="name" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                         <label for=""  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Nombre</label>
                     </div>
                     <div class="relative flex-1 input-box">
-                        <input type="text" name="last_name" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                        <input formControlName="apellido" type="text" name="last_name" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                         <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Apellido</label>
                     </div>
                 </div>
                 <div class="flex gap-10 justify-between mt-10 text-xl sm:flex-row flex-col">
                     <div class="relative flex-1 input-box">
-                        <input type="number" name="phone" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                        <input formControlName="celular" type="number" name="phone" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                         <label for=""  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Celular</label>
                     </div>
                     <div class="relative flex-1 input-box">
-                        <input type="email" name="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                        <input formControlName="correo" type="email" name="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                         <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Email</label>
                     </div>
                 </div>
@@ -106,21 +106,24 @@
                     <p class="text-white bg-brand-yellow w-full p-2 font-light text-lg">Detalles de la empresa</p>
                 </div>
                 <div class="relative mt-10 text-xl input-box">
-                    <input type="text" name="name_enterprise" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                    <input formControlName="empresa" type="text" name="name_enterprise" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                     <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Nombre de la empresa</label>
                 </div>
                 <div class="flex gap-10 justify-between mt-10 text-xl sm:flex-row flex-col">
                     <div class="relative flex-1 input-box">
-                        <input type="number" name="code" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
-                        <label for=""  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Código</label>
-                    </div>
+                        <input type="text" formControlName="codigo" name="code" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full appearance-none" required>
+                        <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Código</label>
+                    </div>                    
                     <div class="relative flex-1 input-box">
-                        <input type="text" name="address" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+                        <input formControlName="direccion" type="text" name="address" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
                         <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Dirección</label>
                     </div>
                 </div>
-                <button class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-5 font-bold text-white text-xl duration-300 hover:shadow-xl">Agregar</button>
+                <button (click)="saveCustomer()" class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-5 font-bold text-white text-xl duration-300 hover:shadow-xl">{{modalButtonText}}</button>
             </form>
+            <p *ngIf="message" class="bg-yellow-intense text-black font-bold text-lg p-2 rounded-lg w-full text-center mt-5 fade-in-out">
+                {{ message }}
+            </p>
         </div>
     </div>
 </main>

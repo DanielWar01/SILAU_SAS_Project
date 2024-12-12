@@ -1,9 +1,15 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProductLineService } from '../../../../core/services/ProductLineOrder/product-line.service';
 
 interface LineaProducto {
+  idLineaProducto: number;
+  nombreLinea: string;
+}
+
+interface LineProduct {
   idLineaProducto: number;
   nombreLinea: string;
 }
@@ -18,7 +24,10 @@ interface LineaProducto {
 export default class LineProductsComponent {
   @ViewChild('modal') modal!: ElementRef;
   @ViewChild('modalContainer') modalContainer!: ElementRef;
-  
+  private productLineService = inject(ProductLineService);
+
+  errorMessage: string = '';
+  lineProducts: LineProduct[] = [];
   lineaForm!: FormGroup;
   selectedLinea: LineaProducto | null = null;
   isEditing = false;
@@ -29,6 +38,7 @@ export default class LineProductsComponent {
 
   constructor(private fb: FormBuilder) {
     this.initForm();
+    this.loadLineProduct();
   }
 
   private initForm() {
@@ -87,9 +97,23 @@ export default class LineProductsComponent {
     }
   }
 
+  loadLineProduct(){
+    this.productLineService.list().subscribe({
+      next: (data) => {
+        if(data.data.length > 0){
+          this.lineProducts = data.data
+          console.log(this.lineProducts)
+        }
+      },
+      error: () => {
+        this.errorMessage = 'No se pudo recibir la lista de lineas de productos'
+      }
+    })
+  }
+
   deleteLinea(id: number) {
     if (confirm('¿Está seguro de eliminar esta línea de producto?')) {
-      this.lineas = this.lineas.filter(linea => linea.idLineaProducto !== id);
+      this.lineProducts = this.lineProducts.filter(linea => linea.idLineaProducto !== id);
     }
   }
 }

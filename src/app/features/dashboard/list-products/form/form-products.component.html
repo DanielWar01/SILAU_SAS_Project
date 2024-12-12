@@ -14,7 +14,7 @@
           <div class="form-group">
             <label class="block mb-2">Línea Producto<span class="text-red-500">*</span></label>
             <select formControlName="linea_producto" class="w-full p-2 border rounded">
-              <option value="">Select</option>
+              <option *ngFor="let line of lineProducts" value={{line.nombreLinea}}>{{line.nombreLinea}}</option>
             </select>
           </div>
   

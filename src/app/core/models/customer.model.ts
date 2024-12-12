@@ -4,6 +4,7 @@ export interface Customer {
     empresa: string;
     correo: string;
     direccion: string;
+    codigo: string;
     celular: string;
     estado: boolean;
 }

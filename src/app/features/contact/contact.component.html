@@ -1,22 +1,30 @@
-<form action="" class="container max-w-4xl mx-auto mt-10">
+<form [formGroup]="formContact" class="container max-w-4xl mx-auto mt-10">
     <h2 class="text-4xl font-bold text-neutral-600">Contacto</h2>
     <div class="flex gap-10 justify-between mt-10 text-xl sm:flex-row flex-col">
         <div class="relative flex-1 input-box">
-            <input type="text" name="name" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
-            <label for=""  class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Nombre</label>
+            <input formControlName="nombre" type="text" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+            <label class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Nombre</label>
         </div>
         <div class="relative flex-1 input-box">
-            <input type="email" name="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
-            <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Correo Electrónico</label>
+            <input formControlName="email" type="email" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+            <label class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Correo Electrónico</label>
         </div>
     </div>
     <div class="relative mt-10 text-xl input-box">
-        <input type="number" name="phone" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
-        <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Número de teléfono</label>
+        <input formControlName="numeroContacto" type="number" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required>
+        <label class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Número de teléfono</label>
     </div>
     <div class="relative mt-10 text-xl input-box">
-        <textarea name="comment" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required></textarea>
-        <label for="" class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Comentario</label>
+        <textarea formControlName="comentario" class="outline-none border border-neutral-700 p-2 rounded-md bg-transparent w-full" required></textarea>
+        <label class="duration-300 text-neutral-700 absolute top-0 left-0 p-2 pointer-events-none">Comentario</label>
     </div>
-    <button class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-5 font-bold text-white text-xl duration-300 hover:shadow-xl">Enviar</button>
+    <button (click)="sendEmail()" class="mt-5 p-2 bg-brand-yellow hover:bg-yellow-intense hover:rounded-md px-5 font-bold text-white text-xl duration-300 hover:shadow-xl">
+        Enviar
+    </button>
+    <p *ngIf="message" class="bg-yellow-intense text-black font-bold text-lg p-2 rounded-lg w-full text-center mt-5 fade-in-out">
+        {{ message }}
+    </p>
+    <p *ngIf="error" class="bg-red-500 text-black font-bold text-xl p-2 rounded-xl w-full text-center mt-5 fade-in-out">
+        {{ error }}
+    </p>
 </form>

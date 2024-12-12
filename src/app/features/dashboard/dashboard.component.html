@@ -1,11 +1,62 @@
 <div class="content-container h-screen">
     <app-side-bar [parentElement]="main"></app-side-bar>
     <main #main class="main-content ml-0 p-8 duration-500 ease-in-out text-justify sm:ml-60 bg-gray-100 min-h-screen">
-        <div *ngIf="showDashboard">
-            <h2>Dashboard</h2>
+      <div *ngIf="showDashboard">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Orders Card -->
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Order Statistics</h2>
+            <div class="space-y-2">
+              <p>Total Orders: <span class="font-bold">{{ orderStats.totalOrders }}</span></p>
+              <p>Pending Orders: <span class="font-bold text-yellow-600">{{ orderStats.ordersByStatus.pendingOrders }}</span></p>
+              <p>Completed Orders: <span class="font-bold text-green-600">{{ orderStats.ordersByStatus.completedOrders }}</span></p>
+              <p>In Progress Orders: <span class="font-bold text-blue-600">{{ orderStats.ordersByStatus.inProgressOrders }}</span></p>
+              <p>Total Order Value: <span class="font-bold text-indigo-600">${{ orderStats.totalOrderValue | number:'1.2-2' }}</span></p>
+              <p>Average Order Value: <span class="font-bold text-purple-600">${{ orderStats.averageOrderValue | number:'1.2-2' }}</span></p>
+            </div>
+          </div>
+
+          <!-- Products Card -->
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Product Statistics</h2>
+            <div class="space-y-2">
+              <p>Total Products: <span class="font-bold">{{ productStats.totalProducts }}</span></p>
+              <div>
+                <p class="font-semibold">Products by Line:</p>
+                <ul class="pl-4 list-disc">
+                  <li *ngFor="let line of productStats.productsByLine">
+                    {{ line.lineName }}: <span class="font-bold">{{ line.count }}</span>
+                  </li>
+                </ul>
+              </div>
+              <p>Out of Stock Products: <span class="font-bold text-red-600">{{ productStats.outOfStockProducts }}</span></p>
+              <p>Low Stock Products: <span class="font-bold text-orange-600">{{ productStats.lowStockProducts }}</span></p>
+              <p>Average Price: <span class="font-bold text-green-600">${{ productStats.averagePrice | number:'1.2-2' }}</span></p>
+              <p>Most Expensive Product: <span class="font-bold text-blue-600">{{ productStats.mostExpensiveProduct.nombre }} (${{ productStats.mostExpensiveProduct.precio | number:'1.2-2' }})</span></p>
+            </div>
+          </div>
+
+          <!-- Customers Card -->
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">Customer Statistics</h2>
+            <div class="space-y-2">
+              <p>Total Customers: <span class="font-bold">{{ customerStats.totalCustomers }}</span></p>
+              <p>Active Customers: <span class="font-bold text-green-600">{{ customerStats.activeCustomers }}</span></p>
+              <p>Inactive Customers: <span class="font-bold text-red-600">{{ customerStats.inactiveCustomers }}</span></p>
+              <div>
+                <p class="font-semibold">Customers by Company:</p>
+                <ul class="pl-4 list-disc">
+                  <li *ngFor="let company of objectKeys(customerStats.customersByCompany)">
+                    {{ company }}: <span class="font-bold">{{ customerStats.customersByCompany[company] }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <router-outlet></router-outlet>
+      </div>
+      <router-outlet></router-outlet>
     </main>
 </div>
-
-

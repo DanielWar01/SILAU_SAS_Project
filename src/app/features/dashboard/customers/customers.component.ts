@@ -1,12 +1,14 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CustomerService } from '../../../core/services/CustomerService/customer.service';
 import { Customer } from '../../../core/models/customer.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CustomerSave } from '../../../core/models/CustomerSave.model';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.css'
 })
@@ -16,11 +18,27 @@ export default class CustomersComponent implements OnInit{
   public customerListFilter: Customer[] = [];
   public errorMessage: string = '';
   public search: string = '';
+  private formBuild = inject(FormBuilder);
+  private currentId: string | undefined = '';
+
+  public message: string = '';
+  public isEditMode: boolean = false;
+  public modalTitle: string = 'Agregar cliente';
+  public modalButtonText: string = 'Agregar';
   
   public numberList: number[] = [];
   @ViewChild('modal') modal!: ElementRef;
   @ViewChild('modal_container') modal_container!: ElementRef;
 
+  public formCusotmer: FormGroup = this.formBuild.group({
+    nombre: ['', Validators.required],
+    apellido: ['', Validators.required],
+    celular: ['', Validators.required],
+    correo: ['', Validators.required],
+    empresa: ['', Validators.required],
+    codigo: ['', Validators.required],
+    direccion: ['', Validators.required],
+  });
 
   constructor() {
     const start = 2;
@@ -47,10 +65,29 @@ export default class CustomersComponent implements OnInit{
     }
   }  
 
-  openModal(){
+  openModal(isEdit: boolean = false, customer?: Customer){
     this.modal_container.nativeElement.style.opacity = "1";
     this.modal_container.nativeElement.style.visibility = "visible";
     this.modal.nativeElement.classList.toggle("modal-close");
+    this.currentId = customer?.idCliente.toString()
+
+    this.isEditMode = isEdit;
+    this.modalTitle = isEdit ? 'Editar cliente' : 'Agregar cliente';
+    this.modalButtonText = isEdit ? 'Actualizar' : 'Agregar';
+    if (isEdit && customer) {
+      this.currentId = customer.idCliente.toString();
+      this.formCusotmer.setValue({
+        nombre: customer.nombre.split(' ').slice(0, customer.nombre.split(' ').length/2).join(' '),
+        apellido: customer.nombre.split(' ').slice(customer.nombre.split(' ').length/2, customer.nombre.split(' ').length+1).join(' '),
+        celular: customer.celular,
+        correo: customer.correo,
+        empresa: customer.empresa,
+        codigo: customer.codigo,
+        direccion: customer.direccion
+      });
+    }else{
+      this.formCusotmer.reset();
+    }
   }
 
   closeModal(){
@@ -77,6 +114,59 @@ export default class CustomersComponent implements OnInit{
         this.errorMessage = 'No se pudo recibir la lista de productos'
       }
     })
+  }
+
+  saveCustomer(){
+
+    const customer: CustomerSave = {
+      nombreCliente: this.formCusotmer.value.nombre,
+      apellidoCliente: this.formCusotmer.value.apellido,
+      celularCliente: this.formCusotmer.value.celular,
+      correoCliente: this.formCusotmer.value.correo,
+      nombreEmpresa: this.formCusotmer.value.empresa,
+      codigoEmpresa: this.formCusotmer.value.codigo,
+      direccionEmpresa: this.formCusotmer.value.direccion,
+    };
+
+    if (this.isEditMode) {
+      // Update existing customer
+      this.customerService.updateCustomer(this.currentId, customer).subscribe({
+        next: (data) => {
+          if (data) {
+            this.showMessage('Cliente actualizado correctamente.');
+            this.loadCustomers();
+            this.closeModal();
+          }
+        },
+        error: () => {
+          this.showError('No fue posible actualizar el cliente.');
+        },
+      });
+    } else {
+      // Create new customer
+      this.customerService.createCustomer(customer).subscribe({
+        next: (data) => {
+          if (data) {
+            this.showMessage('Cliente agregado correctamente.');
+            this.loadCustomers(); // Reload the customer list
+            this.closeModal();
+          }
+        },
+        error: () => {
+          this.showError('No fue posible agregar el cliente.');
+        },
+      });
+    }
+  }
+
+  private showMessage(message: string) {
+    this.message = message;
+    setTimeout(() => (this.message = ''), 10000); // Ocultar mensaje después de 10s
+  }
+
+  private showError(error: string) {
+    this.errorMessage = error;
+    setTimeout(() => (this.errorMessage = ''), 10000); // Ocultar error después de 10s
   }
 
 }
